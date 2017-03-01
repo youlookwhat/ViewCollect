@@ -1,33 +1,12 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-// 为兼容 api19以下,在使用的对应build.gradle文件内需要这样配置
-//android {
-//
-//    compileSdkVersion 24
-//    buildToolsVersion "24.0.2"
-//    defaultConfig {
-//        minSdkVersion 19
-//        targetSdkVersion 24
-//        versionCode 1
-//        versionName "1.0"
-//
-//        // 高斯模糊,加上这两句
-//        renderscriptTargetApi 19
-//        renderscriptSupportModeEnabled true
-//    }
-//    compileOptions {
-//        sourceCompatibility JavaVersion.VERSION_1_6
-//        targetCompatibility JavaVersion.VERSION_1_6
-//    }
-//}
-
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' //增加这一句
+        classpath 'com.android.tools.build:gradle:2.2.3'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
