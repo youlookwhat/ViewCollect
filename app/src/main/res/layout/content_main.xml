@@ -97,5 +97,19 @@
             android:layout_height="1px"
             android:background="#e0e0e0" />
 
+        <TextView
+            android:id="@+id/tv_lab"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="可拖动的RecyclerView"
+            app:theme="@style/AppTheme" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#e0e0e0" />
+
     </LinearLayout>
 </layout>

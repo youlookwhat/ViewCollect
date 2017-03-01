@@ -17,6 +17,7 @@ import android.view.View;
 import com.example.jingbin.viewcollect.databinding.ActivityMainBinding;
 import com.example.jingbin.viewcollect.ui.CountTimeViewActivity;
 import com.example.jingbin.viewcollect.ui.ExpandableViewActivity;
+import com.example.jingbin.viewcollect.ui.KawsArticleLabelEditActivity;
 import com.example.jingbin.viewcollect.ui.NumberAddViewActivity;
 import com.example.jingbin.viewcollect.ui.ProductDetailActivity;
 import com.example.jingbin.viewcollect.ui.WordWrapViewActivity;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity
         binding.include.inContentMain.tvTag.setOnClickListener(this);
         binding.include.inContentMain.tvExpand.setOnClickListener(this);
         binding.include.inContentMain.tvTime.setOnClickListener(this);
+        binding.include.inContentMain.tvLab.setOnClickListener(this);
     }
 
     @Override
@@ -87,6 +89,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.tv_time: // 倒计时控件
                 CountTimeViewActivity.start(MainActivity.this);
+                break;
+            case R.id.tv_lab: // 可拖动的RecyclerView
+                KawsArticleLabelEditActivity.start(MainActivity.this);
                 break;
             default:
                 break;

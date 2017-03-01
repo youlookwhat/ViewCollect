@@ -7,6 +7,9 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
 import com.example.jingbin.viewcollect.R;
+import com.example.jingbin.viewcollect.rx.RxBus;
+import com.example.jingbin.viewcollect.rx.RxCodeConstants;
+import com.example.jingbin.viewcollect.rx.VoidMessage;
 
 
 /**
@@ -152,7 +155,7 @@ public class LabelSelecterAdapter extends BaseLabelAdapter<String, DragViewHolde
         @Override
         public void run() {
             isLongPressMode = true;
-//            RxBus.getDefault().post(RxCodeConstants.KAWS_LABEL, new VoidMessage());
+            RxBus.getDefault().post(RxCodeConstants.KAWS_LABEL, new VoidMessage());
 
             // 成功回调
 

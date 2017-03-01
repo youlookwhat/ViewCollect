@@ -6,11 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.AttributeSet;
 
-import com.dzy.cancerprevention_anticancer.adapter.BaseLabelAdapter;
-import com.dzy.cancerprevention_anticancer.adapter.LabelSelecterAdapter;
-import com.dzy.cancerprevention_anticancer.interfaces.DragItemStartListener;
-import com.dzy.cancerprevention_anticancer.interfaces.MyItemTouchHelper;
-import com.dzy.cancerprevention_anticancer.interfaces.OnLabelItemTouchListener;
+import com.example.jingbin.viewcollect.dragview.child.BaseLabelAdapter;
+import com.example.jingbin.viewcollect.dragview.child.DragGridLayoutManager;
+import com.example.jingbin.viewcollect.dragview.child.DragItemStartListener;
+import com.example.jingbin.viewcollect.dragview.child.LabelSelecterAdapter;
+import com.example.jingbin.viewcollect.dragview.child.MyItemTouchHelper;
+import com.example.jingbin.viewcollect.dragview.child.OnLabelItemTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;

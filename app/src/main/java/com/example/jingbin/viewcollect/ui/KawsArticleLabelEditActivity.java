@@ -1,7 +1,9 @@
 package com.example.jingbin.viewcollect.ui;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.View;
@@ -9,28 +11,22 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.dzy.cancerprevention_anticancer.activity.R;
-import com.dzy.cancerprevention_anticancer.activity.base.BaseActivity;
-import com.dzy.cancerprevention_anticancer.adapter.LabelSelecterAdapter;
-import com.dzy.cancerprevention_anticancer.db.SQuser;
-import com.dzy.cancerprevention_anticancer.entity.ArticleChannelsBean;
-import com.dzy.cancerprevention_anticancer.entity.ChannelIdsPostBean;
-import com.dzy.cancerprevention_anticancer.http.HttpUtils;
-import com.dzy.cancerprevention_anticancer.interfaces.OnLabelItemTouchListener;
-import com.dzy.cancerprevention_anticancer.rx.RxBus;
-import com.dzy.cancerprevention_anticancer.rx.RxCodeConstants;
-import com.dzy.cancerprevention_anticancer.rx.VoidMessage;
-import com.dzy.cancerprevention_anticancer.view.DragRecyclerView;
-import com.dzy.cancerprevention_anticancer.view.UnDragRecyclerView;
+import com.example.jingbin.viewcollect.R;
+import com.example.jingbin.viewcollect.dragview.DragRecyclerView;
+import com.example.jingbin.viewcollect.dragview.UnDragRecyclerView;
+import com.example.jingbin.viewcollect.dragview.child.LabelSelecterAdapter;
+import com.example.jingbin.viewcollect.dragview.child.OnLabelItemTouchListener;
+import com.example.jingbin.viewcollect.rx.RxBus;
+import com.example.jingbin.viewcollect.rx.RxCodeConstants;
+import com.example.jingbin.viewcollect.rx.VoidMessage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observer;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+
+import static android.R.attr.type;
+
 
 /**
  * Created by jingbin on 16/11/1.
@@ -39,7 +35,7 @@ import rx.schedulers.Schedulers;
  * tempListTag 可编辑部分
  * keepItemCount 固定的版块个数
  */
-public class KawsArticleLabelEditActivity extends BaseActivity {
+public class KawsArticleLabelEditActivity extends AppCompatActivity {
 
     // 是否在没编辑模式下点击了 添加更过版块的标签
     private boolean isClickAdd = false;
@@ -54,16 +50,15 @@ public class KawsArticleLabelEditActivity extends BaseActivity {
     private ImageButton ibt_back_v3_title_bar;
     private Button btn_use_v3_title_bar;
     private TextView txt_title_v3_title_bar;
-    public final String CLOSE="close";
-    public final String CHANGE="change";
+    public final String CLOSE = "close";
+    public final String CHANGE = "change";
     public boolean isOK;
-
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("可拖动的RecyclerView");
         setContentView(R.layout.layout_editlabel);
         titlesForSend = getIntent().getStringArrayListExtra("titlesForSend");
         tempListTag = getIntent().getStringArrayListExtra("tempListTag");
@@ -183,52 +178,58 @@ public class KawsArticleLabelEditActivity extends BaseActivity {
             }
         }
         if (isPut) {//更改过内容
-            ChannelIdsPostBean userTags = new ChannelIdsPostBean();
-            userTags.setUserkey(new SQuser(this).selectKey());
-            ArrayList<String> ids = new ArrayList<>();
-            for (String s : titles) {
-                if (!"推荐".equals(s)) {// 最少传"热点"。
-                    ids.add(KawsInformationActivity.tagMap.get(s));
-                }
-            }
-            userTags.setChannel_ids(ids);
-            Subscription subscription = HttpUtils.getInstance().getV4ApiServer().postArticleChannels(HttpUtils.getInstance().getHeaderStr("POST"), userTags)
-                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<ArticleChannelsBean>() {
-                        @Override
-                        public void onCompleted() {
+//            ChannelIdsPostBean userTags = new ChannelIdsPostBean();
+//            userTags.setUserkey(new SQuser(this).selectKey());
+//            ArrayList<String> ids = new ArrayList<>();
+//            for (String s : titles) {
+//                if (!"推荐".equals(s)) {
+//                    ids.add(KawsInformationActivity.tagMap.get(s));
+//                }
+//            }
+//            userTags.setChannel_ids(ids);
+//            Subscription subscription = HttpUtils.getInstance().getV4ApiServer().postData(HttpUtils.getInstance().getHeaderStr("POST"), userTags)
+//                    .subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<ArticleChannelsBean>() {
+//                        @Override
+//                        public void onCompleted() {
+//
+//                        }
+//
+//                        @Override
+//                        public void onError(Throwable e) {
+//                            stopProgressDialog();
+//                            tipInfo("提交数据失败，请稍后重试", 3);
+//                        }
+//
+//                        @Override
+//                        public void onNext(ArticleChannelsBean articleChannelsBean) {
+//                            isOK = true;
+//                            /**清空用户选择的集合*/
+//                            stopProgressDialog();
 
-                        }
+//                            titlesForSend.clear();
+//                            titlesForSend.addAll(titles);
+//
+//                            isClickAdd = false;
+//                            isrRefresh = true;
+//                            if (CLOSE.equals(type)) {
+//                                if (isOK) {
+//                                    setResult(RESULT_OK);
+//                                }
+//                                finish();
+//
+//                                // 是否在未编辑的情况下"点击添加更多版块"
+//                            } else if (ISCHILDADD.equals(type)) {
+//                                backInformation(isrRefresh, isClickPosition);
+//                            }
+//                        }
+//                    });
+//            addSubscription(subscription);
 
-                        @Override
-                        public void onError(Throwable e) {
-                            stopProgressDialog();
-                            tipInfo("提交数据失败，请稍后重试", 3);
-                        }
 
-                        @Override
-                        public void onNext(ArticleChannelsBean articleChannelsBean) {
-                            isOK = true;
-                            /**清空用户选择的集合*/
-                            stopProgressDialog();
-                            /**添加首页和问答直通车到用户选择的标题集合和id集合*/
-                            titlesForSend.clear();
-                            titlesForSend.addAll(titles);
+            // 为了功能正常
+            function(titles);
 
-                            isClickAdd = false;
-                            isrRefresh = true;
-                            if (CLOSE.equals(type)) {
-                                if (isOK) {
-                                    setResult(RESULT_OK);
-                                }
-                                finish();
 
-                                // 是否在未编辑的情况下"点击添加更多版块"
-                            } else if (ISCHILDADD.equals(type)) {
-                                backInformation(isrRefresh, isClickPosition);
-                            }
-                        }
-                    });
-            addSubscription(subscription);
 
         } else if (CLOSE.equals(type)) {
             if (isOK) {
@@ -238,9 +239,26 @@ public class KawsArticleLabelEditActivity extends BaseActivity {
         }
     }
 
+    private void function(List<String> titles) {
+        isOK = true;
+        titlesForSend.clear();
+        titlesForSend.addAll(titles);
+
+        isClickAdd = false;
+        isrRefresh = true;
+        if (CLOSE.equals(type)) {
+            if (isOK) {
+                setResult(RESULT_OK);
+            }
+            finish();
+
+            // 是否在未编辑的情况下"点击添加更多版块"
+        } else if (ISCHILDADD.equals(type)) {
+            backInformation(isrRefresh, isClickPosition);
+        }
+    }
+
     /**
-     * 返回资讯页
-     *
      * @param isRefresh 是否刷新页面
      * @param position  跳到哪个标签下
      */
@@ -259,7 +277,7 @@ public class KawsArticleLabelEditActivity extends BaseActivity {
             if (((LabelSelecterAdapter) (dragRecyclerView.getAdapter())).getLongPressMode()) {
                 btn_use_v3_title_bar.setText("编辑");
                 dragRecyclerView.quitLongPressMode();
-                putTags((List<String>) (dragRecyclerView.getDatas()),CHANGE);
+                putTags((List<String>) (dragRecyclerView.getDatas()), CHANGE);
 
             } else {
                 putTags((List<String>) (dragRecyclerView.getDatas()), CLOSE);
@@ -269,4 +287,25 @@ public class KawsArticleLabelEditActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    public static void start(Context mContext) {
+        Intent intent = new Intent(mContext, KawsArticleLabelEditActivity.class);
+        ArrayList<String> titlesForSend = new ArrayList<>();
+        titlesForSend.add("你好");
+        titlesForSend.add("你是");
+        titlesForSend.add("哈哈");
+        titlesForSend.add("嘿嘿");
+        titlesForSend.add("嘻嘻");
+        ArrayList<String> tempListTag = new ArrayList<>();
+        tempListTag.add("固定1");
+        tempListTag.add("固定2");
+        tempListTag.add("固定3");
+        ArrayList<String> fixedList = new ArrayList<>();
+        intent.putExtra("titlesForSend", titlesForSend);
+        intent.putExtra("tempListTag", tempListTag);
+        intent.putExtra("fixedList", fixedList);
+        mContext.startActivity(intent);
+    }
+
+
 }

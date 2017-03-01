@@ -9,4 +9,6 @@
     <color name="tip_txt">#666666</color>
     <color name="bg_margin">#f2f2f1</color>
 
+    <color name="theme">#22c283</color>
+    <color name="check_text_color">#333333</color>
 </resources>
