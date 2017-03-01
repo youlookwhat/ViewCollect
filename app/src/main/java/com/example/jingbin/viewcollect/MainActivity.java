@@ -17,7 +17,8 @@ import android.view.View;
 import com.example.jingbin.viewcollect.databinding.ActivityMainBinding;
 import com.example.jingbin.viewcollect.ui.CountTimeViewActivity;
 import com.example.jingbin.viewcollect.ui.ExpandableViewActivity;
-import com.example.jingbin.viewcollect.ui.KawsArticleLabelEditActivity;
+import com.example.jingbin.viewcollect.ui.FlipperActivity;
+import com.example.jingbin.viewcollect.ui.LabelEditActivity;
 import com.example.jingbin.viewcollect.ui.NumberAddViewActivity;
 import com.example.jingbin.viewcollect.ui.ProductDetailActivity;
 import com.example.jingbin.viewcollect.ui.WordWrapViewActivity;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity
         binding.include.inContentMain.tvExpand.setOnClickListener(this);
         binding.include.inContentMain.tvTime.setOnClickListener(this);
         binding.include.inContentMain.tvLab.setOnClickListener(this);
+        binding.include.inContentMain.tvFlipper.setOnClickListener(this);
     }
 
     @Override
@@ -91,7 +93,10 @@ public class MainActivity extends AppCompatActivity
                 CountTimeViewActivity.start(MainActivity.this);
                 break;
             case R.id.tv_lab: // 可拖动的RecyclerView
-                KawsArticleLabelEditActivity.start(MainActivity.this);
+                LabelEditActivity.start(MainActivity.this);
+                break;
+            case R.id.tv_flipper: // Flipper滚动条
+                FlipperActivity.start(MainActivity.this);
                 break;
             default:
                 break;

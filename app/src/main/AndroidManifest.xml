@@ -36,10 +36,11 @@
             android:theme="@style/PlayerTheme" />
         <activity android:name=".ui.WordWrapViewActivity" />
         <activity android:name=".ui.ExpandableViewActivity" />
-        <activity android:name=".ui.CountTimeViewActivity"/>
+        <activity android:name=".ui.CountTimeViewActivity" />
         <activity
-            android:name=".ui.KawsArticleLabelEditActivity"
+            android:name=".ui.LabelEditActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".ui.FlipperActivity"></activity>
     </application>
 
 </manifest>

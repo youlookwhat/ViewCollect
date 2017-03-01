@@ -35,7 +35,7 @@ import static android.R.attr.type;
  * tempListTag 可编辑部分
  * keepItemCount 固定的版块个数
  */
-public class KawsArticleLabelEditActivity extends AppCompatActivity {
+public class LabelEditActivity extends AppCompatActivity {
 
     // 是否在没编辑模式下点击了 添加更过版块的标签
     private boolean isClickAdd = false;
@@ -289,7 +289,7 @@ public class KawsArticleLabelEditActivity extends AppCompatActivity {
     }
 
     public static void start(Context mContext) {
-        Intent intent = new Intent(mContext, KawsArticleLabelEditActivity.class);
+        Intent intent = new Intent(mContext, LabelEditActivity.class);
         ArrayList<String> titlesForSend = new ArrayList<>();
         titlesForSend.add("你好");
         titlesForSend.add("你是");
